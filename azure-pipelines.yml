@@ -20,3 +20,7 @@ steps:
     npm install
     npm run prod-build-dev
   displayName: 'npm install and build'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'dist'
+    ArtifactName: 'utilities-front'
