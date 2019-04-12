@@ -19,7 +19,12 @@ steps:
     npm install -g @angular/cli
     npm install
     npm run prod-build-dev
-  displayName: 'npm install and build'
+  displayName: 'Build & Test'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/TEST-*.xml'
+    searchFolder: 'coverage'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage Angular results'
@@ -29,7 +34,7 @@ steps:
     summaryFileLocation: './coverage/cobertura-coverage.xml'
     reportDirectory: './coverage/src'
 
-- task: PublishBuildArtifacts@2
+- task: PublishBuildArtifacts@1
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     PathtoPublish: 'dist'
