@@ -25,10 +25,9 @@ steps:
   displayName: 'Publish code coverage Angular results'
   condition: succeededOrFailed()
   inputs:
-    codeCoverageTool: Cobertura
+    codeCoverageTool: 'Cobertura'
     summaryFileLocation: './coverage/cobertura-coverage.xml'
-    reportDirectory: ./coverage/src
-    failIfCoverageEmpty: true
+    reportDirectory: './coverage/src'
 
 - task: PublishBuildArtifacts@2
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
