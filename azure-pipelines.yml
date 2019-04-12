@@ -20,7 +20,18 @@ steps:
     npm install
     npm run prod-build-dev
   displayName: 'npm install and build'
-- task: PublishBuildArtifacts@1
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage Angular results'
+  condition: succeededOrFailed()
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: './coverage/cobertura-coverage.xml'
+    reportDirectory: ./coverage/src
+    failIfCoverageEmpty: true
+
+- task: PublishBuildArtifacts@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     PathtoPublish: 'dist'
     ArtifactName: 'utilities-front'

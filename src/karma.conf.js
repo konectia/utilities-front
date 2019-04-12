@@ -17,7 +17,7 @@ module.exports = function (config) {
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, '../coverage'),
-      reports: ['html', 'lcovonly'],
+      reports: ['html', 'lcovonly', 'text-summary', 'cobertura'],
       fixWebpackSourcePaths: true
     },
     angularCli: {
@@ -31,8 +31,6 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: false,
   }
-
-  if (process.env.TEST_CI) {
     Object.assign(defaults, {
       autoWatch: false,
       browsers: ['ChromeHeadlessNoSandbox'],
@@ -45,7 +43,6 @@ module.exports = function (config) {
       },
       browserNoActivityTimeout: 60000,
     })
-  }
 
   config.set(defaults)
 };
