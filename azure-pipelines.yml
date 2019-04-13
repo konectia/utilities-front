@@ -23,7 +23,7 @@ steps:
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: '**/TESTS-*.xml'
     searchFolder: 'coverage'
 
 - task: PublishCodeCoverageResults@1
