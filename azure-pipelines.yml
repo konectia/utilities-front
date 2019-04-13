@@ -18,5 +18,24 @@ steps:
 - script: |
     npm install -g @angular/cli
     npm install
-    ng build --prod
-  displayName: 'npm install and build'
+    npm run prod-build-dev
+  displayName: 'Build & Test'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/TESTS-*.xml'
+    searchFolder: 'coverage'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage Angular results'
+  condition: succeededOrFailed()
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: './coverage/cobertura-coverage.xml'
+    reportDirectory: './coverage/src'
+
+- task: PublishBuildArtifacts@1
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    PathtoPublish: 'dist'
+    ArtifactName: 'utilities-front'
