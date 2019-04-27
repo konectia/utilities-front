@@ -8,13 +8,20 @@
 .main-container {
     margin-top: 56px;
     margin-left: 235px;
-    padding: 15px;
+    padding-top: 15px;
     -ms-overflow-x: hidden;
     overflow-x: hidden;
     overflow-y: scroll;
     position: relative;
     overflow: hidden;
+    display: flex;
+    min-height: 90vh;
+    flex-direction: column;
+
 }
+.Site-content {
+    flex: 1;
+  }
 .collapsed {
     margin-left: 100px;
 }

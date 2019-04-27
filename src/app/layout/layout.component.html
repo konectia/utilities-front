@@ -1,5 +1,9 @@
 <app-header></app-header>
 <app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
 <section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+    <div class="Site-content">
     <router-outlet></router-outlet>
+    </div>
+    <app-footer class="mt-auto border-top px-3 text-right"></app-footer>
 </section>
+

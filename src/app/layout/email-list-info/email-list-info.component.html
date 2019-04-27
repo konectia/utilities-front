@@ -1,0 +1,81 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ emailList.name }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <ngb-accordion #acc="ngbAccordion">
+            <ngb-panel title="{{'Subscribed mails' | translate}}: {{ emailList.subscribedEmails.length }}">
+                <ng-template ngbPanelContent>
+                    <table class="card-body table table-hover" *ngIf="emailList.subscribedEmails.length>0">
+                        <thead>
+                            <tr>
+                                <th>Mail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let mail of emailList.subscribedEmails">
+                                <td>{{mail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel title="{{'Unsubscribed mails' | translate}}: {{ emailList.unSubscribedEmails.length }}">
+                <ng-template ngbPanelContent>
+                    <table class="card-body table table-hover" *ngIf="emailList.unSubscribedEmails.length>0">
+                        <thead>
+                            <tr>
+                                <th>{{'Mail' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let mail of emailList.unSubscribedEmails">
+                                <td>{{mail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel title="{{'Invalid mails' | translate}} ({{emailListInfo.invalidMails.length}})">
+                <ng-template ngbPanelContent>
+                    <table class="card-body table table-hover" *ngIf="emailListInfo.invalidMails.length>0">
+                        <thead>
+                            <tr>
+                                <th>{{'Mail' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let mail of emailListInfo.invalidMails">
+                                <td>{{mail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Duplicated Mails ({{emailListInfo.duplicatedMails.length}})">
+                <ng-template ngbPanelContent>
+                    <table class="card-body table table-hover" *ngIf="emailListInfo.duplicatedMails.length>0">
+                        <thead>
+                            <tr>
+                                <th>{{'Mail' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let mail of emailListInfo.duplicatedMails">
+                                <td>{{mail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="clean()">{{'Clean' | translate }}</button>
+    <button type="button" class="btn btn-secondary" (click)="export()">{{'Export' | translate }}</button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">{{'Close' | translate}}</button>
+</div>

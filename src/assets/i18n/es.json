@@ -36,5 +36,22 @@
     "Password": "Contraseña",
     "Repeat Password": "Repetir Contraseña",
     "Register": "Registrarse",
-    "Log in": "Entrar"
+    "Log in": "Entrar",
+    "Mail Campaigns": "Campañas de e-mail",
+    "List": "Lista",
+    "Subscribed mails": "Correos subscritos",
+    "Unsubscribed mails": "Correos dados de baja",
+    "Invalid mails": "Correos inválidos",
+    "Actions": "Acciones",
+    "Analize": "Analizar",
+    "Delete": "Eliminar",
+    "No files added. Add xlsx or zip files using Add button": "No se ha añadido ningún fiecher. Añada ficheros '.xlsx' o '.zip' mediante el botón 'Añadir'.",
+    "Add": "Añadir",
+    "Delete All": "Eliminar Todo",
+    "Filter": "Filtro",
+    "Clean": "Limpiar",
+    "Close": "Cerrar",
+    "Export": "Exportar",
+    "Add new file": "Añadir un nuevo fichero",
+    "Select the file to add": "Seleccione el fichero a añadir"
 }
