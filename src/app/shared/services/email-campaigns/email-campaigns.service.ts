@@ -88,7 +88,6 @@ export class EmailCampaignsService {
     } else {
       emailList.unSubscribedEmails = emailList.unSubscribedEmails.concat(mails);
     }
-    console.log('Saving mails...' + eMailLists.length);
     const storage = localStorage.setItem(this.MAIL_LIST_STORAGE, JSON.stringify(eMailLists));
   }
 
@@ -102,7 +101,6 @@ export class EmailCampaignsService {
           .then(function () {
             const finalList: String[] = [];
             workbook.getWorksheet(1).eachRow({ includeEmpty: false }, function (row, rowNumber) {
-              console.log('rowNumber ' + rowNumber + ' ' + JSON.stringify(row.values));
               const mail = row.values[1].text ? row.values[1].text.trim() : row.values[1].trim();
               finalList.push(mail.toLowerCase());
             });
