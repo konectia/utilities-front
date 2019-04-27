@@ -9,6 +9,8 @@ import { DropDownComponent } from '../components/drop-down/drop-down.component';
 import { EmailListInfoComponent } from '../email-list-info/email-list-info.component';
 import { NewFileComponent } from '../new-file/new-file.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { EmailFilterPipe } from './email-filter.pipe';
 
 @NgModule({
     imports: [
@@ -18,13 +20,15 @@ import { TranslateModule } from '@ngx-translate/core';
         EmailCampaignsRoutingModule,
         StatModule,
         NgbModule,
-        TranslateModule
+        TranslateModule,
+        FormsModule
     ],
     declarations: [
         EmailCampaignsComponent,
         DropDownComponent,
         EmailListInfoComponent,
-        NewFileComponent
+        NewFileComponent,
+        EmailFilterPipe
     ],
     entryComponents: [ EmailListInfoComponent, NewFileComponent ]
 })
