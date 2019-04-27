@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class EmailCampaignsComponent implements OnInit {
     emailLists: EmailList[];
+    searchText: String = '';
     closeResult: string;
     constructor(private emailCampanignsService: EmailCampaignsService,
         private translate: TranslateService,
