@@ -39,3 +39,11 @@ steps:
   inputs:
     PathtoPublish: 'dist'
     ArtifactName: 'utilities-front'
+- task: AzureFileCopy@3
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    SourcePath: 'dist'
+    ConnectedServiceNameARM: 'Evaluación gratuita(00e52f88-3c31-4f3b-8c66-b7f40cc82272)'
+    Destination: 'AzureBlob'
+    StorageAccountRM: 'konectiautilities'
+    ContainerName: '$web'
