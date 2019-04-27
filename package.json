@@ -28,10 +28,14 @@
     "@ngx-translate/http-loader": "4.0.0",
     "chart.js": "2.7.3",
     "core-js": "2.5.7",
+    "exceljs": "^1.9.0",
+    "file-saver": "^2.0.1",
     "font-awesome": "4.7.0",
+    "jszip": "^3.2.1",
     "ng2-charts": "1.6.0",
     "rxjs": "6.3.3",
     "yarn": "1.12.1",
+    "zlib": "^1.0.5",
     "zone.js": "0.8.26"
   },
   "devDependencies": {

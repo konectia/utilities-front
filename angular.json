@@ -18,8 +18,13 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico",
-              "src/web.config"
+              "src/konectia.ico",
+              "src/web.config",
+              {
+                "glob": "**/*",
+                "input": "./lib/zip",
+                "output": "/scripts/"
+              }
             ],
             "styles": [
               "node_modules/font-awesome/css/font-awesome.css",
@@ -89,7 +94,12 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/konectia.ico",
+              {
+                "glob": "**/*",
+                "input": "./lib/zip",
+                "output": "/scripts/"
+              }
             ]
           }
         },
