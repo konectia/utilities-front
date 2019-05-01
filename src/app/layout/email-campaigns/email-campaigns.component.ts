@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 
 import { EmailCampaignsService } from '../../shared/services/email-campaigns/email-campaigns.service';
@@ -8,7 +8,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { EmailListInfoComponent } from '../email-list-info/email-list-info.component';
 import { NewFileComponent } from '../new-file/new-file.component';
 import { TranslateService } from '@ngx-translate/core';
+import { SortableHeaderDirective, SortEvent } from '../components/sortable-header/sortable-header.directive';
 
+export const compare = (v1, v2) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 @Component({
     selector: 'app-email-campaigns',
     templateUrl: './email-campaigns.component.html',
@@ -16,9 +18,14 @@ import { TranslateService } from '@ngx-translate/core';
     animations: [routerTransition()]
 })
 export class EmailCampaignsComponent implements OnInit {
+
+    @ViewChildren(SortableHeaderDirective) headers: QueryList<SortableHeaderDirective>;
     emailLists: EmailList[];
     searchText: String = '';
     closeResult: string;
+
+
+
     constructor(private emailCampanignsService: EmailCampaignsService,
         private translate: TranslateService,
         private modalService: NgbModal) { }
@@ -26,6 +33,25 @@ export class EmailCampaignsComponent implements OnInit {
     ngOnInit() {
         this.getEmailList();
     }
+
+    onSort({ column, direction }: SortEvent) {
+        // resetting other headers
+        this.headers.forEach(header => {
+            if (header.sortable !== column) {
+                header.direction = '';
+            }
+        });
+
+        // sorting countries
+        if (direction !== '') {
+            this.emailCampanignsService.getMailLists()
+            .subscribe(list => this.emailLists = [...list].sort((a, b) => {
+                const res = (column === 'name' ? compare(a[column], b[column]) : compare(a[column].length, b[column].length));
+                return direction === 'asc' ? res : -res;
+            }));
+        }
+    }
+
     getEmailList(): void {
         this.emailCampanignsService.getMailLists()
             .subscribe(list => this.emailLists = list);
@@ -39,23 +65,23 @@ export class EmailCampaignsComponent implements OnInit {
         switch (action.action) {
             case 'Analize':
                 this.open(action);
-            break;
+                break;
             case 'Delete':
-                this.emailCampanignsService.deleteEmailList(this.emailLists.find (list => list.name ===  action.id))
+                this.emailCampanignsService.deleteEmailList(this.emailLists.find(list => list.name === action.id))
                     .subscribe(list => this.emailLists = list);
-            break;
+                break;
         }
     }
 
     open(action) {
         const modalRef = this.modalService.open(EmailListInfoComponent);
-        modalRef.componentInstance.emailList = this.emailLists.find (list => list.name ===  action.id);
+        modalRef.componentInstance.emailList = this.emailLists.find(list => list.name === action.id);
     }
     newFile() {
         const modalRef = this.modalService.open(NewFileComponent).result.then((result) => {
             this.emailCampanignsService.uploadCampaignsFile(result).subscribe(
                 list => this.emailLists = list);
-            });
+        });
     }
 
     private getDismissReason(reason: any): string {
@@ -64,7 +90,7 @@ export class EmailCampaignsComponent implements OnInit {
         } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
             return 'by clicking on a backdrop';
         } else {
-            return  `with: ${reason}`;
+            return `with: ${reason}`;
         }
     }
 

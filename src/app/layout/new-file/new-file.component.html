@@ -6,8 +6,9 @@
 </div>
 <div class="modal-body">
     <p>{{'Select the file to add' | translate}} ('.xlsx', '.zip')</p>
+    <p>{{ 'File name(s) must end with "_subscribed.xlsx" or "_unsubscribed.xlsx" to be added to a list' | translate }}</p>
     <input class="form-control mr-sm-2" type="file" accept="zip/*" (change)="processFileChanged($event)"/>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">{{'Close' | translate}}</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close('Close click')">{{'Close' | translate}}</button>
 </div>

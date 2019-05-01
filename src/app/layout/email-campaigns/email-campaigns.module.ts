@@ -11,6 +11,7 @@ import { NewFileComponent } from '../new-file/new-file.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { EmailFilterPipe } from './email-filter.pipe';
+import { SortableHeaderDirective } from '../components/sortable-header/sortable-header.directive';
 
 @NgModule({
     imports: [
@@ -27,9 +28,11 @@ import { EmailFilterPipe } from './email-filter.pipe';
         EmailCampaignsComponent,
         DropDownComponent,
         EmailListInfoComponent,
+        SortableHeaderDirective,
         NewFileComponent,
         EmailFilterPipe
     ],
+    exports: [SortableHeaderDirective],
     entryComponents: [ EmailListInfoComponent, NewFileComponent ]
 })
 export class EmailCampaignsModule {}

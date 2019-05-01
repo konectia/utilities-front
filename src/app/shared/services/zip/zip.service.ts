@@ -13,7 +13,6 @@ export class ZipService {
   }
 
   getEntries(file): Observable<Array<ZipEntry>> {
-    console.log('file: ' + file);
     return new Observable(subscriber => {
       const reader = new zip.BlobReader(file);
       zip.createReader(reader, zipReader => {
