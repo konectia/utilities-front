@@ -46,7 +46,7 @@
     "Analize": "Analizar",
     "Delete": "Eliminar",
     "No files added. Add xlsx or zip files using Add button": "No se ha añadido ningún fichero. Añada ficheros '.xlsx' o '.zip' mediante el botón 'Añadir'.",
-    "File name(s) must end with \"_subscribed.xlsx\" or \"_unsubscribed.xlsx\" to be added to a list": "El/Los nombres de los fichero(s) a añadir deben de terminar con el sufijo \"_subscribed.xlsx\" o \"_unsubscribed.xlsx\" para ser incluidos en la lista.",
+    "File name(s) must end with \"_subscribed_members.xlsx\" or \"_unsubscribed_members.xlsx\" to be added to a list": "El/Los nombres de los fichero(s) a añadir deben de terminar con el sufijo \"_subscribed_members.xlsx\" o \"_unsubscribed_members.xlsx\" para ser incluidos en la lista.",
     "Add": "Añadir",
     "Delete All": "Eliminar Todo",
     "Filter": "Filtro",
