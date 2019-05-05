@@ -5,15 +5,16 @@ import { EmailList } from '../../../model/email-list';
 import { ZipService } from '../zip/zip.service';
 import { EmailListInfo } from 'src/app/model/email-list-info';
 import * as fs from 'file-saver';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 @Injectable({
   providedIn: 'root'
 })
 export class EmailCampaignsService {
+
+  constructor(private zipService: ZipService) { }
   readonly MAIL_LIST_STORAGE = 'mailLists';
   readonly UN_SUBSCRIBED_SUFFIX = '_unsubscribed_members.xlsx';
   readonly SUBSCRIBED_SUFFIX = '_subscribed_members.xlsx';
-
-  constructor(private zipService: ZipService) { }
 
   getMailLists(): Observable<EmailList[]> {
     const storage = localStorage.getItem(this.MAIL_LIST_STORAGE) || '[]';
@@ -111,11 +112,13 @@ export class EmailCampaignsService {
     });
   }
 
-  public analizeEmailList(list: EmailList): Observable<EmailListInfo> {
+  public analizeEmailList(list: EmailList, otherLists?: EmailList[]): Observable<EmailListInfo> {
     const listInfo: EmailListInfo = {
       duplicatedMails: [],
-      invalidMails: []
+      invalidMails: [],
+      invalidMailsInOtherLists: otherLists ? [] : null
     };
+
     listInfo.invalidMails = list.subscribedEmails.filter(function (item) {
       return list.unSubscribedEmails.includes(item);
     });
@@ -123,12 +126,35 @@ export class EmailCampaignsService {
     listInfo.duplicatedMails = list.subscribedEmails.filter(function (item, i, ar) {
       return ar.indexOf(item) !== i;
     });
+    listInfo.duplicatedMails = this.deleteDuplicatedFromList(listInfo.duplicatedMails, true);
+    if (otherLists) {
+      otherLists.forEach(ol => {
+        if (ol.name !== list.name) {
+          listInfo.invalidMailsInOtherLists = listInfo.invalidMailsInOtherLists.concat(list.subscribedEmails.filter(function (item) {
+            return ol.unSubscribedEmails.includes(item);
+          }
+          ));
+        }
+      });
+      // delete duplicates and order results
+      listInfo.invalidMailsInOtherLists = this.deleteDuplicatedFromList(
+        listInfo.invalidMailsInOtherLists, true);
+    }
     return of(listInfo);
   }
-  public clean(list: EmailList): Observable<EmailList> {
+  public clean(list: EmailList, otherLists?: EmailList[]): Observable<EmailList> {
     list.subscribedEmails = list.subscribedEmails.filter(function (item, i, ar) {
       return !list.unSubscribedEmails.includes(item) && ar.indexOf(item) === i;
     });
+    if (otherLists) {
+      otherLists.forEach(ol => {
+        if (ol.name !== list.name) {
+          list.subscribedEmails = list.subscribedEmails.filter(function (item, i, ar) {
+            return !ol.unSubscribedEmails.includes(item);
+          });
+        }
+      });
+    }
     return of(list);
   }
 
@@ -155,5 +181,16 @@ export class EmailCampaignsService {
         });
       });
     });
+  }
+
+  private deleteDuplicatedFromList(list: any[], sort?: boolean): any[] {
+    const newList = list.filter(function (elem, index, self) {
+      return index === self.indexOf(elem);
+    });
+    if (sort && sort === true) {
+      return newList.sort();
+    } else {
+      return newList;
+    }
   }
 }
