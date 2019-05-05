@@ -55,6 +55,22 @@
                     </table>
                 </ng-template>
             </ngb-panel>
+            <ngb-panel title="{{'Invalid mails (other lists)' | translate}} ({{emailListInfo.invalidMailsInOtherLists.length}})">
+                <ng-template ngbPanelContent>
+                    <table class="card-body table table-hover" *ngIf="emailListInfo.invalidMailsInOtherLists.length>0">
+                        <thead>
+                            <tr>
+                                <th>{{'Mail' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let mail of emailListInfo.invalidMailsInOtherLists">
+                                <td>{{mail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+            </ngb-panel>
             <ngb-panel title="Duplicated Mails ({{emailListInfo.duplicatedMails.length}})">
                 <ng-template ngbPanelContent>
                     <table class="card-body table table-hover" *ngIf="emailListInfo.duplicatedMails.length>0">

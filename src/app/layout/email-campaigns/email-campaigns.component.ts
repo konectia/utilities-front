@@ -75,6 +75,7 @@ export class EmailCampaignsComponent implements OnInit {
 
     open(action) {
         const modalRef = this.modalService.open(EmailListInfoComponent);
+        modalRef.componentInstance.allEmailLists = this.emailLists;
         modalRef.componentInstance.emailList = this.emailLists.find(list => list.name === action.id);
     }
     newFile() {

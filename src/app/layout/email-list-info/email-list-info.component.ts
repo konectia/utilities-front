@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class EmailListInfoComponent implements OnInit {
     @Input() emailList: EmailList;
     emailListInfo: EmailListInfo;
+    allEmailLists: EmailList[];
     constructor(private emailCampanignsService: EmailCampaignsService,
         private translate: TranslateService,
         public activeModal: NgbActiveModal) { }
@@ -21,13 +22,13 @@ export class EmailListInfoComponent implements OnInit {
         this.update();
     }
     clean(): void {
-        this.emailCampanignsService.clean(this.emailList).subscribe(list => {
+        this.emailCampanignsService.clean(this.emailList, this.allEmailLists).subscribe(list => {
             this.emailList = list;
             this.update();
         });
     }
     update(): void {
-        this.emailCampanignsService.analizeEmailList(this.emailList).subscribe(info => {
+        this.emailCampanignsService.analizeEmailList(this.emailList, this.allEmailLists).subscribe(info => {
             this.emailListInfo = info;
         });
     }
