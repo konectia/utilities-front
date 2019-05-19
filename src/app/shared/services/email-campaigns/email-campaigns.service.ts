@@ -100,9 +100,13 @@ export class EmailCampaignsService {
         workbook.xlsx.load(reader.result)
           .then(function () {
             const finalList: String[] = [];
-            workbook.getWorksheet(1).eachRow({ includeEmpty: false }, function (row, rowNumber) {
-              const mail = row.values[1].text ? row.values[1].text.trim() : row.values[1].trim();
-              finalList.push(mail.toLowerCase());
+            workbook.eachSheet(function(worksheet, sheetId) {
+              if (worksheet) {
+                worksheet.eachRow({ includeEmpty: false }, function (row, rowNumber) {
+                  const mail = row.values[1].text ? row.values[1].text.trim() : row.values[1].trim();
+                  finalList.push(mail.toLowerCase());
+                });
+              }
             });
             return resolve(finalList.sort());
           }).catch((error) => console.error(error.toString()));
